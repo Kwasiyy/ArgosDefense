@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Integration Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <img src="loading-logo.svg" alt="Argos Defense Logo">
+        <nav>
+            <ul>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <aside class="toc">
+                <h2>Integration Stages</h2>
+                <ul id="stages">
+                    <li><a href="#step1">Step 1: Define Requirements</a></li>
+                    <li><a href="#step2">Step 2: Set Up Endpoint</a></li>
+                    <li><a href="#step3">Step 3: Configure Webhook</a></li>
+                    <li><a href="#step4">Step 4: Test the Webhook</a></li>
+                    <li><a href="#step5">Step 5: Monitor and Optimize</a></li>
+                </ul>
+            </aside>
+            <section class="content">
+                <article id="step1">
+                    <h2>Step 1: Define the Webhook Requirements</h2>
+                    <ol>
+                        <li><strong>Identify the Trigger Event</strong>: Determine the event that will trigger the webhook. In this context, the webhook is triggered by a new transaction entering the system that needs to be evaluated for fraud detection.</li>
+                        <li><strong>Determine the Data to Send</strong>: Define the transaction details that will be sent with the webhook. This typically includes:
+                            <ul>
+                                <li>Transaction ID</li>
+                                <li>Amount</li>
+                                <li>Category</li>
+                                <li>Merchant information</li>
+                                <li>Customer Details</li>
+                            </ul>
+                        </li>
+                        <li><strong>Decide on the Data Format</strong>: Use JSON format to structure the data being sent, as it is widely supported and easy to parse.</li>
+                        <li><strong>Choose the HTTP Method</strong>: Use the `POST` method to send the transaction data to the webhook endpoint.</li>
+                    </ol>
+                </article>
+                <article id="step2">
+                    <h2>Step 2: Set Up the Webhook Endpoint</h2>
+                    <ol>
+                        <li><strong>Create the Endpoint</strong>: Set up a new endpoint in your system to receive the webhook requests. For example, the endpoint could be `/webhook` in your Flask application.</li>
+                        <li><strong>Define the Endpoint’s Method and Data Format</strong>: Ensure that the endpoint is set up to accept `POST` requests with a JSON payload.</li>
+                        <li><strong>Implement Processing Logic</strong>: Write the logic to handle the incoming webhook data. For example, use the data to trigger fraud detection, log the transaction, or notify relevant personnel.
+                            <pre><code>
+@app.route('/webhook', methods=['POST'])
+def webhook_listener():
+    data = request.json
+    # Process the webhook data, e.g., pass to fraud detection model
+    print(f"Received webhook data: {data}")
+    # Respond to acknowledge receipt of the webhook
+    return jsonify({"status": "success"})
+                            </code></pre>
+                        </li>
+                    </ol>
+                </article>
+                <article id="step3">
+                    <h2>Step 3: Configure the Webhook in Your System</h2>
+                    <ol>
+                        <li><strong>Set Up Webhook in the Application</strong>: Modify your application logic to send a `POST` request to the webhook endpoint whenever a relevant event (like a new transaction) occurs.</li>
+                        <li><strong>Example Logic to Trigger the Webhook</strong>:
+                            <pre><code>
+curl -X POST http://your_domain.com/webhook -H "Content-Type: application/json" -d '{
+  "step": 1,
+  "customer": "John Doe",
+  "age": 30,
+  "gender": "M",
+  "merchant": "Merchant A",
+  "category": "Electronics",
+  "amount": 150.00
+}'
+                            </code></pre>
+                        </li>
+                    </ol>
+                </article>
+                <article id="step4">
+                    <h2>Step 4: Test the Webhook</h2>
+                    <ol>
+                        <li><strong>Use Tools for Testing</strong>: Use tools like Postman or cURL to send test requests to the webhook URL and validate that the data is correctly received and processed.
+                            <pre><code>
+curl -X POST http://your_domain.com/webhook -H "Content-Type: application/json" -d '{
+  "step": 1,
+  "customer": "John Doe",
+  "age": 30,
+  "gender": "M",
+  "merchant": "Merchant A",
+  "category": "Electronics",
+  "amount": 150.00
+}'
+                            </code></pre>
+                        </li>
+                        <li><strong>Verify the Response</strong>: Ensure that your system processes the webhook data and returns a successful response.
+                            <pre><code>
+{
+    "fraud_prediction": false,
+    "fraud_score": 0.0037277089431881905
+}
+                            </code></pre>
+                        </li>
+                    </ol>
+                </article>
+                <article id="step5">
+                    <h2>Step 5: Monitor and Optimize</h2>
+                    <ol>
+                        <li><strong>Implement Logging and Alerts</strong>: Monitor the webhook's performance by logging requests and responses. Set up alerts for failures or anomalies, such as unusually high transaction amounts or fraud scores.</li>
+                        <li><strong>Test Edge Cases</strong>: Regularly test the webhook with various transaction scenarios, including edge cases like extremely high fraud scores or missing data, to ensure robustness.</li>
+                        <li><strong>Optimize Performance</strong>: As your system scales, ensure that the webhook processing is efficient, with minimal latency, especially for real-time fraud detection.</li>
+                    </ol>
+                </article>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Argos Defense Team</p>
+    </footer>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

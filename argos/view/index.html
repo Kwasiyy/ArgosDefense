@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Argos Defense - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="loading-logo.svg" alt="Argos Defense Logo">
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#use-case">Use Case</a></li>
+                <li><a href="#webhook-integration">Webhook Integration</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="home" class="section">
+            <div class="text-container left-align">
+                <h1>Welcome To Argos Defense</h1>
+                <p>Stronghold Against Bank Fraud</p>
+            </div>
+            <div class="scroll-indicator">
+                <a href="#about-us">&#x25BC;</a>
+            </div>
+        </section>
+        <section id="about-us" class="section">
+            <div class="text-container top-right">
+                <h2>About Us</h2>
+                <p>At Argos Defense, we are committed to fortifying financial institutions against fraudulent activities. Our cutting-edge solutions leverage real-time transaction monitoring and advanced algorithms to ensure that your assets remain secure and your trust uncompromised. We stand as a vigilant guardian, empowering our clients to navigate the complexities of modern banking with confidence.</p>
+            </div>
+        </section>
+        <section id="use-case" class="section">
+            <div class="text-container top-left">
+                <h2>Use Cases</h2>
+                <ul>
+                    <li onclick="showImages('sequence-diagrams')">Sequence Diagrams</li>
+                    <li onclick="showImages('high-level-diagrams')">High-Level Diagrams</li>
+                    <li onclick="showImages('class-diagrams')">Class Diagrams</li>
+                    <li onclick="showImages('use-case-diagrams')">Use Case Diagrams</li>
+                </ul>
+            </div>
+            <div class="image-container" id="image-container">
+                <img src="use-case-diagram.png" alt="Use Case Diagram">
+            </div>
+        </section>
+        <section id="webhook-integration" class="section">
+            <div class="text-container top-right">
+                <h2>WebHook Integration</h2>
+                <p>Integrating Argos Defense’s webhook into your banking system is a seamless process designed to enhance your fraud detection capabilities. Our easy-to-follow guide ensures that your system is quickly equipped to handle real-time data, providing an additional layer of security to protect against fraudulent transactions.</p>
+            </div>
+            <div class="button-container">
+                <a href="/view/guide.html" class="cta-button">Let's Get Started!</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Argos Defense Team</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
